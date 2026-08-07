@@ -1,0 +1,186 @@
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+  line-height: 1.15;
+}
+
+.publication-authors {
+  font-family: 'Google Sans', sans-serif;
+  margin-top: 1.2rem;
+}
+
+.publication-authors a,
+.publication-authors a:visited {
+  color: hsl(204, 86%, 42%);
+}
+
+.publication-authors a:hover {
+  text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+  margin-right: 0.25rem;
+}
+
+.publication-links {
+  margin-top: 1.6rem;
+}
+
+.publication-links .link-block {
+  display: inline-block;
+  margin: 0.25rem;
+}
+
+.dnerf {
+  font-variant: small-caps;
+  font-weight: 600;
+}
+
+/* ---------- teaser ---------- */
+.teaser {
+  padding-top: 0;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+}
+
+.teaser-img,
+.figure-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid hsl(0, 0%, 90%);
+}
+
+.teaser .subtitle {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.05rem;
+  margin-top: 1.2rem;
+  color: hsl(0, 0%, 33%);
+}
+
+/* ---------- captions ---------- */
+.caption {
+  font-size: 0.9rem;
+  color: hsl(0, 0%, 40%);
+  margin-top: 0.7rem;
+  margin-bottom: 1.4rem;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ---------- placeholders ---------- */
+.placeholder-box {
+  border: 2px dashed hsl(0, 0%, 78%);
+  border-radius: 8px;
+  padding: 0.75rem;
+  background: hsl(0, 0%, 98%);
+}
+
+.placeholder-box img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.placeholder-note {
+  font-size: 0.85rem;
+  color: hsl(0, 0%, 52%);
+  font-style: italic;
+  margin-top: 0.6rem;
+}
+
+/* ---------- results tables ---------- */
+.results-table {
+  font-size: 0.92rem;
+}
+
+.results-table th {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.results-table td:first-child,
+.results-table th:first-child {
+  text-align: left;
+}
+
+.results-table td,
+.results-table th {
+  text-align: center;
+}
+
+.results-table .gt-row {
+  background-color: hsl(0, 0%, 96%) !important;
+  font-style: italic;
+}
+
+.results-table .ours-row {
+  background-color: hsl(204, 86%, 96%) !important;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+/* ---------- video ---------- */
+.publication-video {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.publication-video iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+/* ---------- carousel ---------- */
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 0 0.5rem;
+  overflow: hidden;
+  border: 1px solid hsl(0, 0%, 88%);
+  border-radius: 6px;
+}
+
+.results-carousel .item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- misc ---------- */
+.icon-link {
+  font-size: 1.4rem;
+  color: hsl(0, 0%, 29%);
+  margin: 0 0.4rem;
+}
+
+footer .content p {
+  font-size: 0.9rem;
+}
+
+pre code {
+  font-size: 0.85rem;
+}
+
+@media screen and (max-width: 768px) {
+  .publication-title {
+    font-size: 2rem !important;
+  }
+  .results-table {
+    font-size: 0.8rem;
+  }
+}

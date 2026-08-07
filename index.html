@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="iARCS: Iterative Agentic RL for Controllable 3D Scene Generation">
+  <meta name="keywords" content="3D scene generation, reinforcement learning, LLM reward synthesis, diffusion models">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iARCS: Iterative Agentic RL for Controllable 3D Scene Generation</title>
+
+  <!-- TODO: replace with your own social preview image (1200x630) -->
+  <meta property="og:title" content="iARCS: Iterative Agentic RL for Controllable 3D Scene Generation"/>
+  <meta property="og:description" content="An iterative agentic RL framework that adapts a pretrained 3D scene generator to natural-language task requirements."/>
+  <meta property="og:url" content="https://Saugat2002.github.io/iarcs/"/>
+  <meta property="og:image" content="static/images/teaser.png"/>
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-carousel@4.0.24/dist/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-slider@2.0.5/dist/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+</head>
+<body>
+
+<!-- ===================== TITLE / AUTHORS / LINKS ===================== -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">iARCS: Iterative Agentic RL for<br>Controllable 3D Scene Generation</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="#" target="_blank">Saugat Adhikari</a><sup>1</sup>*,</span>
+            <span class="author-block">
+              <a href="#" target="_blank">Ashok Prasad Neupane</a><sup>1</sup>*,</span>
+            <span class="author-block">
+              <a href="#" target="_blank">Pramish Paudel</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="#" target="_blank">Ajad Chhatkuli</a><sup>2,3</sup>,</span>
+            <span class="author-block">
+              <a href="#" target="_blank">Danda Pani Paudel</a><sup>2,3</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>Pulchowk Campus, IOE, Tribhuvan University</span><br>
+            <span class="author-block"><sup>2</sup>NAAMII, Nepal</span> &nbsp;
+            <span class="author-block"><sup>3</sup>INSAIT, Sofia University "St. Kliment Ohridski"</span><br>
+            <span class="author-block is-size-7">*Equal contribution</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- TODO: paste the real arXiv id once the submission is announced -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="./static/pdfs/iarcs_paper.pdf" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- TODO: point at the real repository -->
+              <span class="link-block">
+                <a href="https://github.com/Saugat2002/iarcs" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- TODO: dataset release link -->
+              <span class="link-block">
+                <a href="#" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="far fa-images"></i></span>
+                  <span>Data</span>
+                </a>
+              </span>
+              <!-- TODO: video link -->
+              <span class="link-block">
+                <a href="#" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-youtube"></i></span>
+                  <span>Video</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEASER ===================== -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser.png" alt="iARCS qualitative teaser" class="teaser-img"/>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">iARCS</span> generates 3D indoor scenes that satisfy
+        natural-language task constraints while preserving physical plausibility
+        and walkable structure.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEASER VIDEO (PLACEHOLDER) ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Overview Video</h2>
+        <div class="publication-video">
+          <!-- TODO: replace with a real embed, e.g.
+               <iframe src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+          <div class="placeholder-box">
+            <img src="./static/images/placeholder_video_poster.png" alt="video placeholder"/>
+            <p class="placeholder-note">Placeholder — drop the overview video here
+              (YouTube embed, or <code>static/videos/teaser.mp4</code>).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABSTRACT ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Synthetic 3D scene generation is increasingly used as a data source for computer
+            vision and embodied AI, but existing generators often optimize perceptual realism
+            without reliably satisfying task-critical functional constraints. This mismatch
+            limits the usefulness of synthetic data for downstream training, where accessibility,
+            traversability, and spatial rule compliance are often essential.
+          </p>
+          <p>
+            We present <b>iARCS</b>, an iterative agentic reinforcement learning framework that
+            adapts a pretrained scene generator to natural-language task requirements. iARCS uses
+            a two-stage strategy: <i>universal-reward pretraining</i> to improve physical
+            plausibility and layout quality, followed by <i>task-specific fine-tuning</i> with
+            LLM-generated reward programs that are iteratively refined from training feedback.
+          </p>
+          <p>
+            Experiments show improved constraint fidelity on walkability, reachability, and
+            clearance-focused tasks, effective task-specific constraint optimization, and
+            competitive scene diversity. We further show that data generated by iARCS improves a
+            base generator, supporting its value as a practical synthetic data generation tool
+            rather than only a controllable scene editing method.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHOD ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Method</h2>
+        <img src="./static/images/method.png" alt="iARCS method overview" class="figure-img"/>
+        <p class="caption">
+          <b>Overview.</b> A pretrained diffusion scene generator is adapted by RL. Stage&nbsp;1
+          optimizes universal rewards (collision avoidance, boundary adherence, object density,
+          accessibility). Stage&nbsp;2 fine-tunes with task-specific rewards synthesized by an LLM
+          from a natural-language prompt and refined across iterations.
+        </p>
+
+        <div class="mt-6">
+          <h3 class="title is-4 has-text-centered">Agentic Reward Synthesis</h3>
+          <img src="./static/images/prompt_reasoning.png" alt="prompt to reward pipeline" class="figure-img"/>
+          <p class="caption">
+            A natural-language requirement is decomposed into measurable geometric checks and
+            compiled into executable reward code used inside the RL loop.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTS ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Results</h2>
+
+        <h3 class="title is-4">Comparison with prior work</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped is-hoverable results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Col<sub>obj</sub> &darr;</th>
+                <th>Col<sub>scene</sub> &darr;</th>
+                <th>R<sub>out</sub> &darr;</th>
+                <th>R<sub>reach</sub> (%) &uarr;</th>
+                <th>R<sub>walkable</sub> &uarr;</th>
+                <th>FID &darr;</th>
+                <th>SCA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="gt-row">
+                <td>Ground Truth</td><td>42.00%</td><td>72.04%</td><td>5.79%</td>
+                <td>82.80%</td><td>0.841</td><td>&ndash;</td><td>&ndash;</td>
+              </tr>
+              <tr>
+                <td>ATISS</td><td>54.12%</td><td>85.96%</td><td>7.32%</td>
+                <td>83.57%</td><td>0.780</td><td>1.39</td><td>67.23%</td>
+              </tr>
+              <tr>
+                <td>MiDiffusion</td><td>52.67%</td><td>81.67%</td><td>5.89%</td>
+                <td>85.7%</td><td>0.806</td><td><b>1.34</b></td><td><b>65.99%</b></td>
+              </tr>
+              <tr class="ours-row">
+                <td><b>iARCS (Ours)</b></td><td><b>40.45%</b></td><td><b>64.63%</b></td>
+                <td><b>3.04%</b></td><td><b>87.82%</b></td><td><b>0.861</b></td>
+                <td>1.60</td><td>68.51%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">Bedroom scenes from 3D-FRONT. Best in <b>bold</b>.</p>
+
+        <h3 class="title is-4 mt-6">Synthetic data improves the base generator</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped is-hoverable results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Col<sub>obj</sub> &darr;</th>
+                <th>Col<sub>scene</sub> &darr;</th>
+                <th>R<sub>out</sub> &darr;</th>
+                <th>R<sub>reach</sub> (%) &uarr;</th>
+                <th>R<sub>walkable</sub> &uarr;</th>
+                <th>FID &darr;</th>
+                <th>SCA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MiDiffusion (3D-FRONT)</td><td>52.67%</td><td>81.67%</td><td>5.89%</td>
+                <td>85.7%</td><td>0.806</td><td>1.34</td><td>66.00%</td>
+              </tr>
+              <tr class="ours-row">
+                <td>MiDiffusion (3D-FRONT + iARCS aug.)</td><td><b>41.49%</b></td>
+                <td><b>63.61%</b></td><td><b>3.12%</b></td><td><b>92.52%</b></td>
+                <td><b>0.8272</b></td><td>1.34</td><td>66.10%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="title is-4 mt-6">Single-stage vs. two-stage training</h3>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped is-hoverable results-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Col<sub>obj</sub> &darr;</th>
+                <th>Col<sub>scene</sub> &darr;</th>
+                <th>R<sub>out</sub> &darr;</th>
+                <th>R<sub>reach</sub> (%) &uarr;</th>
+                <th>R<sub>walkable</sub> &uarr;</th>
+                <th>FID &darr;</th>
+                <th>SCA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Single-stage</td><td>62.17%</td><td>95.83%</td><td>16.07%</td>
+                <td>64.66%</td><td>0.679</td><td>1.96</td><td>78.69%</td>
+              </tr>
+              <tr class="ours-row">
+                <td>Two-stage (ours)</td><td><b>38.79%</b></td><td><b>70.04%</b></td>
+                <td><b>5.84%</b></td><td><b>80.37%</b></td><td><b>0.744</b></td>
+                <td><b>1.75</b></td><td><b>72.38%</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">Task: <i>"Scene with TV and bed at a 3&nbsp;m distance."</i></p>
+
+        <div class="mt-6">
+          <img src="./static/images/improvement_barplot.png" alt="quantitative improvement" class="figure-img"/>
+          <p class="caption">Improvement of the base generator when augmented with iARCS data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUALITATIVE ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Qualitative Comparisons</h2>
+        <img src="./static/images/qualitative1.png" alt="qualitative comparison" class="figure-img"/>
+        <p class="caption">
+          Red, blue and purple boxes mark object collisions, out-of-bound objects and
+          unreachable regions respectively.
+        </p>
+        <img src="./static/images/qualitative2.png" alt="qualitative comparison 2" class="figure-img mt-5"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CAROUSEL (PLACEHOLDERS) ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Generated Scenes</h2>
+        <p class="has-text-centered mb-5 placeholder-note">
+          Placeholder gallery — swap these for top-down renders of released scenes.
+        </p>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item"><img src="./static/images/placeholder_carousel1.png" alt="sample 1"/></div>
+          <div class="item"><img src="./static/images/placeholder_carousel2.png" alt="sample 2"/></div>
+          <div class="item"><img src="./static/images/placeholder_carousel3.png" alt="sample 3"/></div>
+          <div class="item"><img src="./static/images/placeholder_carousel4.png" alt="sample 4"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BEFORE / AFTER (PLACEHOLDER) ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Baseline vs. iARCS</h2>
+        <div class="columns">
+          <div class="column">
+            <img src="./static/images/placeholder_compare_before.png" alt="baseline" class="figure-img"/>
+            <p class="caption">MiDiffusion (baseline)</p>
+          </div>
+          <div class="column">
+            <img src="./static/images/placeholder_compare_after.png" alt="ours" class="figure-img"/>
+            <p class="caption">iARCS (ours)</p>
+          </div>
+        </div>
+        <p class="placeholder-note has-text-centered">
+          Placeholder pair — replace with matched scenes rendered from the same floor plan.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BIBTEX ===================== -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+<pre><code>@article{adhikari2026iarcs,
+  title   = {iARCS: Iterative Agentic RL for Controllable 3D Scene Generation},
+  author  = {Adhikari, Saugat and Neupane, Ashok Prasad and Paudel, Pramish
+             and Chhatkuli, Ajad and Paudel, Danda Pani},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2026}
+}</code></pre>
+    <p class="placeholder-note">Update the arXiv id once the preprint is announced.</p>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="./static/pdfs/iarcs_paper.pdf" target="_blank">
+        <i class="fas fa-file-pdf"></i></a>
+      <a class="icon-link" href="https://github.com/Saugat2002" target="_blank" class="external-link">
+        <i class="fab fa-github"></i></a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+              Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website template borrowed from
+            <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-carousel@4.0.24/dist/js/bulma-carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-slider@2.0.5/dist/js/bulma-slider.min.js"></script>
+<script src="./static/js/index.js"></script>
+</body>
+</html>
