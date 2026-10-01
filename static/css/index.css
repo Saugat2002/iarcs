@@ -218,14 +218,36 @@ h3 {
 .checks .no { color: var(--bad); }
 .checks .no::before { content: '\f00d'; }
 
-/* intuition strip: concept diagrams under the motivation cards */
-.intuition { margin: 2.2rem auto 0; max-width: 900px; }
-.intuition-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.intuition-row figure { margin: 0; }
-.intuition-row svg { width: 100%; height: auto; display: block; background: #fbfcfd;
-  border: 1px solid var(--line); border-radius: 10px; }
-.intuition-row figcaption { font-size: 0.82rem; color: var(--muted); text-align: center; margin-top: 0.4rem; line-height: 1.4; }
-@media (max-width: 640px) { .intuition-row { grid-template-columns: 1fr; } }
+/* intuition animation under the motivation cards (driven by static/js/index.js) */
+.intuition { margin: 2.2rem auto 0; max-width: 760px; }
+.anim-fig { margin: 0; text-align: center; }
+#prior-anim { width: 100%; height: auto; display: block; background: #fbfcfd;
+  border: 1px solid var(--line); border-radius: 12px; }
+#prior-anim .a-prior { transition: opacity 0.8s ease; }
+#prior-anim .a-goal { opacity: 0; transition: opacity 0.9s ease; }
+#prior-anim.s1 .a-goal, #prior-anim.s2 .a-goal { opacity: 1; }
+#prior-anim .a-dot { fill: #8a8f98; stroke: #fff; stroke-width: 1.2; opacity: 1;
+  transition: transform 1.8s cubic-bezier(.45,.05,.25,1), fill 0.6s ease, opacity 0.6s ease; }
+#prior-anim.pre .a-dot, #prior-anim.pre .a-prior { opacity: 0; transition: none; }
+#prior-anim.s1 .a-dot { opacity: 0.35; }
+#prior-anim.s1 .a-dot.a-hit { opacity: 1; fill: var(--good); }
+#prior-anim.s2 .a-dot { opacity: 1; fill: var(--accent); }
+.anim-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem;
+  margin: 0.9rem 0 0.6rem; padding: 0; text-align: left; }
+.anim-steps li { font-size: 0.84rem; color: var(--faint); line-height: 1.4; display: flex; gap: 0.5rem;
+  transition: color 0.4s ease; }
+.anim-steps li span { flex: none; width: 1.4rem; height: 1.4rem; border-radius: 50%; display: inline-grid;
+  place-items: center; font-size: 0.75rem; font-weight: 700; background: var(--panel); border: 1px solid var(--line);
+  transition: background 0.4s ease, color 0.4s ease; }
+.anim-steps li.active { color: var(--text); }
+.anim-steps li.active span { background: var(--accent); border-color: var(--accent); color: #fff; }
+.anim-replay { margin-top: 0.2rem; }
+.sw-dot.sw-base { background: #8a8f98; }
+@media (max-width: 640px) { .anim-steps { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  #prior-anim .a-dot, #prior-anim .a-goal, #prior-anim .a-prior, .anim-steps li, .anim-steps li span { transition: none; }
+}
+
 .d-prior { fill: #e6e9ee; stroke: #b9bec7; stroke-width: 1.5; }
 .d-prior-ghost { fill: none; stroke: #b9bec7; stroke-width: 1.5; stroke-dasharray: 5 5; }
 .d-goal { fill: rgba(24, 128, 56, 0.16); stroke: var(--good); stroke-width: 1.5; stroke-dasharray: 4 3; }
