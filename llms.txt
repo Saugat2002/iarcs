@@ -10,6 +10,7 @@ Authors: Saugat Adhikari*, Ashok Prasad Neupane* (Pulchowk Campus, IOE, Tribhuva
 - [arXiv abstract](https://arxiv.org/abs/2608.06161): arXiv:2608.06161
 - [Paper PDF](https://arxiv.org/pdf/2608.06161)
 - [Code](https://github.com/thenaivekid/iARCS)
+- [Dataset on Hugging Face](https://huggingface.co/datasets/Saugat20021/iARCS): 12,000 generated scenes (4,000 bedrooms, 4,000 living rooms, 4,000 dining rooms) as Parquet/JSON with 3D-FUTURE model ids, CC BY-NC 4.0
 
 ## Problem
 

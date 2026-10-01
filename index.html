@@ -73,6 +73,7 @@
     "codeRepository": "https://github.com/thenaivekid/iARCS",
     "image": "https://saugat2002.github.io/iarcs-webpage/static/images/og-image.jpg",
     "about": ["3D indoor scene generation", "Reinforcement learning", "Diffusion models", "Large language models"],
+    "isBasedOn": {"@type":"Dataset","name":"iARCS Synthetic Indoor Scenes","description":"12,000 iARCS-generated 3D indoor scene layouts: 4,000 bedrooms, 4,000 living rooms and 4,000 dining rooms, with 3D-FUTURE model ids.","url":"https://huggingface.co/datasets/Saugat20021/iARCS","license":"https://creativecommons.org/licenses/by-nc/4.0/"},
     "mentions": [
       {"@type":"Dataset","name":"3D-FRONT","description":"Large-scale synthetic dataset of professionally designed 3D indoor scenes; iARCS is trained and evaluated on its bedroom, living-room and dining-room splits.","url":"https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset"},
       {"@type":"Dataset","name":"3D-FUTURE","description":"3D furniture CAD models used to retrieve object meshes for generated layouts.","url":"https://tianchi.aliyun.com/specials/promotion/alibaba-3d-future"}
@@ -115,8 +116,8 @@
       <i class="ai ai-arxiv" aria-hidden="true"></i> arXiv</a>
     <a class="pill dark" href="https://github.com/thenaivekid/iARCS" target="_blank" rel="noopener">
       <i class="fab fa-github" aria-hidden="true"></i> Code</a>
-    <span class="pill muted" title="Dataset release coming soon">
-      <i class="fas fa-database" aria-hidden="true"></i> Data <span class="soon">(soon)</span></span>
+    <a class="pill dark" href="https://huggingface.co/datasets/Saugat20021/iARCS" target="_blank" rel="noopener">
+      <i class="fas fa-database" aria-hidden="true"></i> Data</a>
     <a class="pill dark" href="#bibtex">
       <i class="fas fa-quote-right" aria-hidden="true"></i> BibTeX</a>
   </div>
@@ -262,7 +263,9 @@
       <a href="https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset" target="_blank" rel="noopener">3D-FRONT</a>
       bedrooms, living rooms and dining rooms, with furniture from
       <a href="https://tianchi.aliyun.com/specials/promotion/alibaba-3d-future" target="_blank" rel="noopener">3D-FUTURE</a>.
-      Base model: MiDiffusion. RL: DDPO with LoRA. Reward LLM: Gemini 3.6 Flash.</p>
+      Base model: MiDiffusion. RL: DDPO with LoRA. Reward LLM: Gemini 3.6 Flash.
+      <b>Dataset:</b> <a href="https://huggingface.co/datasets/Saugat20021/iARCS" target="_blank" rel="noopener">12,000 iARCS scenes on Hugging Face</a>
+      (4,000 per room).</p>
   </div>
 
   <h3>Scene synthesis</h3>
