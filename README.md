@@ -2,7 +2,7 @@
 
 Project page for **iARCS: Iterative Agentic RL for Controllable 3D Scene Generation** ([arXiv:2608.06161](https://arxiv.org/abs/2608.06161)).
 
-Live at **https://saugat2002.github.io/iarcs-webpage/**
+Live at **https://saugat2002.github.io/iarcs/**
 
 ## Edit
 
