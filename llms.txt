@@ -9,6 +9,7 @@ Authors: Saugat Adhikari*, Ashok Prasad Neupane* (Pulchowk Campus, IOE, Tribhuva
 - [Project page](https://saugat2002.github.io/iarcs-webpage/): overview, figures and result tables
 - [arXiv abstract](https://arxiv.org/abs/2608.06161): arXiv:2608.06161
 - [Paper PDF](https://arxiv.org/pdf/2608.06161)
+- [Code](https://github.com/thenaivekid/iARCS)
 
 ## Problem
 
