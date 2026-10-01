@@ -126,12 +126,11 @@
 
 <!-- ===================== MOTIVATION ===================== -->
 <section id="motivation" class="section wide">
-  <p class="eyebrow">Controllable scene synthesis</p>
+  <p class="eyebrow">Motivation</p>
   <h2 class="headline">Realistic <em>and</em> on-task.</h2>
   <p class="lead">
-    Synthetic 3D rooms are training data for robots and embodied agents. To be useful, a room
-    has to look like a real home <b>and</b> satisfy the task it was generated for. Existing
-    generators give you one or the other.
+    Robots and embodied agents train on synthetic 3D rooms. These rooms need to look real
+    and also meet the task they were made for.
   </p>
 
   <p class="prompt-label">Prompt</p>
@@ -148,9 +147,8 @@
           <li class="yes">Reads the instruction</li>
           <li class="no">Learned layout prior</li>
         </ul>
-        <p>Geometry comes from language reasoning, not from how real rooms are laid out.
-          Furniture floats outside the floor plan: InstructScene places 43.39% of objects out of
-          bounds across rooms.</p>
+        <p>Follows the prompt, but has not learned how real rooms are laid out. Furniture often ends up
+          outside the room: 43.39% of objects for InstructScene.</p>
         <p class="credit">Shown: InstructScene sample.</p>
       </figcaption>
     </figure>
@@ -165,8 +163,8 @@
           <li class="no">Reads the instruction</li>
           <li class="yes">Learned layout prior</li>
         </ul>
-        <p>They reproduce the training distribution, with no way to take a request. Only 5.67%
-          of 3D-FRONT bedrooms meet this reach limit, and MiDiffusion meets it in just 4.53% of samples.</p>
+        <p>Learns realistic layouts from data, but cannot take a prompt. MiDiffusion meets this
+          reach limit in only 4.53% of scenes.</p>
         <p class="credit">Shown: MiDiffusion sample.</p>
       </figcaption>
     </figure>
@@ -181,24 +179,20 @@
           <li class="yes">Reads the instruction</li>
           <li class="yes">Learned layout prior</li>
         </ul>
-        <p>The diffusion model keeps what it learned from data. An LLM writes the reward; RL moves
-          the generator toward it. <b>73.83%</b> of scenes satisfy the prompt.</p>
+        <p>Keeps the learned diffusion model. An LLM writes the reward and RL fine-tunes the model.
+          <b>73.83%</b> of scenes meet the prompt.</p>
       </figcaption>
     </figure>
   </div>
 
   <p class="statement">
-    <b>LLM agents can read the instruction but have not learned what rooms look like.
-    Diffusion models have learned what rooms look like but cannot take an instruction.</b>
-    iARCS keeps the learned scene prior and uses the LLM only to write and revise the reward,
-    never to place furniture.
+    iARCS uses the LLM only to write the reward. The diffusion model still places the furniture.
   </p>
 
   <figure class="figure">
     <img src="./static/images/teaser_updated.webp" width="1955" height="454"
       alt="iARCS scenes for three prompts: TV visible from bed for a farsighted person, a bedroom study zone, and support surfaces under 1 meter for robot grasping">
-    <figcaption>One pretrained generator, three LoRA adapters, three prompts. Each scene satisfies its
-      task constraint while staying physically plausible and walkable.</figcaption>
+    <figcaption>iARCS results for three different prompts.</figcaption>
   </figure>
 </section>
 
@@ -228,39 +222,34 @@
   <figure class="figure">
     <img src="./static/images/methodfig.webp" width="1906" height="860" loading="lazy"
       alt="iARCS overview: an LLM writes a task reward, a diffusion RL loop fine-tunes the scene generator with DDPO, and a reflection loop revises the reward from training statistics">
-    <figcaption>An LLM agent turns the prompt into an executable reward program. DDPO fine-tunes the
-      pretrained diffusion generator on the combined universal and task reward. A reflection
-      module reads reward statistics and the evolution memory, then revises the reward.</figcaption>
+    <figcaption>An LLM writes reward code from the prompt. DDPO fine-tunes the diffusion model on it.
+      Every few stages the LLM looks at the reward statistics and rewrites the reward.</figcaption>
   </figure>
 
   <div class="phases">
     <div class="phase">
       <p class="phase-tag">Phase 1</p>
       <h3>Universal rewards</h3>
-      <p>Pretrained generators inherit dataset flaws such as overlapping furniture. RL with
-        rule-based collision and boundary rewards fixes the base model before any task is
-        introduced.</p>
+      <p>RL with collision and boundary rewards fixes physical errors in the pretrained model.</p>
     </div>
     <div class="phase">
       <p class="phase-tag">Phase 2</p>
-      <h3>Agentic task rewards</h3>
-      <p>For each prompt, the LLM reasons about the constraint, decomposes it into measurable
-        geometric checks and writes Python reward code. A LoRA adapter is trained on the combined
-        reward.</p>
+      <h3>Task rewards</h3>
+      <p>The LLM breaks the prompt into geometric checks and writes Python reward code. A LoRA
+        adapter is trained on this reward.</p>
     </div>
     <div class="phase">
-      <p class="phase-tag">Reflection</p>
-      <h3>Reward evolution memory</h3>
-      <p>Every 10 RL stages the LLM reviews past reward programs, their statistics and top-down
-        renders. It then redefines the reward or adds a simpler curriculum step.</p>
+      <p class="phase-tag">Loop</p>
+      <h3>Reflection</h3>
+      <p>Every 10 RL stages the LLM checks how the reward is doing, using past rewards and their
+        statistics, and rewrites it.</p>
     </div>
   </div>
 
   <figure class="figure">
     <img src="./static/images/fig2.webp" width="1938" height="814" loading="lazy"
       alt="Agentic reward synthesis for the prompt about a farsighted person viewing a 4K TV from bed: scene context, reasoning and decomposition, executable reward function">
-    <figcaption><b>Agentic reward synthesis.</b> The requirement is decomposed into distance, facing
-      and line-of-sight checks and compiled into the reward function used inside the RL loop.</figcaption>
+    <figcaption>Example: turning a prompt into reward code.</figcaption>
   </figure>
 </section>
 
@@ -269,12 +258,11 @@
   <h2>Results</h2>
 
   <div class="setup">
-    <p><b>Dataset.</b> <a href="https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset" target="_blank" rel="noopener">3D-FRONT</a>
-      (6,813 professionally designed indoor scenes; bedroom, living-room and dining-room splits), with furniture meshes retrieved from
+    <p><b>Setup.</b> Trained and evaluated on
+      <a href="https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset" target="_blank" rel="noopener">3D-FRONT</a>
+      bedrooms, living rooms and dining rooms, with furniture from
       <a href="https://tianchi.aliyun.com/specials/promotion/alibaba-3d-future" target="_blank" rel="noopener">3D-FUTURE</a>.
-      <b>Base model.</b> MiDiffusion, floor-plan conditioned. <b>RL.</b> DDPO with LoRA adapters
-      (r&nbsp;=&nbsp;16), 20-step DDIM rollouts, Gemini 3.6 Flash as the reward-synthesis LLM.
-      <b>Baselines.</b> ATISS, MiDiffusion, InstructScene and PhyScene, all scored with the same harness on identical splits.</p>
+      Base model: MiDiffusion. RL: DDPO with LoRA. Reward LLM: Gemini 3.6 Flash.</p>
   </div>
 
   <h3>Scene synthesis</h3>
@@ -302,8 +290,7 @@
       </tbody>
     </table>
   </div>
-  <p class="note">Averaged over bedroom, living-room and dining-room evaluations. All values are percentages
-    except R<sub>walkable</sub> and CLIP-FID. iARCS is best among generated methods on every metric.</p>
+  <p class="note">Average over bedroom, living room and dining room. All values in % except R<sub>walkable</sub> and CLIP-FID.</p>
 
   <details class="breakdown">
     <summary>Per-room breakdown</summary>
@@ -343,8 +330,7 @@
   <figure class="figure narrow">
     <img src="./static/images/table_1_fig.webp" width="1600" height="1881" loading="lazy"
       alt="Side-by-side bedrooms from ATISS, MiDiffusion and iARCS with collisions, out-of-bound objects and unreachable areas marked">
-    <figcaption>ATISS, MiDiffusion and iARCS. Red, blue and purple boxes mark object collisions,
-      out-of-bound objects and unreachable areas; the coloured floor overlay is the walkable region.</figcaption>
+    <figcaption>Red: collisions. Blue: objects out of bounds. Purple: unreachable areas.</figcaption>
   </figure>
 
   <h3>Task-specific constraints</h3>
@@ -370,18 +356,16 @@
       </tbody>
     </table>
   </div>
-  <p class="note">3D-FRONT* (grey) is the subset of real scenes that already satisfy each constraint, shown for reference.
-    MiDiffusion is the unsteered base model. Success is measured over the full generation pool, other metrics on matched
-    satisfying sets. <b>Bold</b> marks where iARCS improves on the base model it adapts: every metric, every task.</p>
+  <p class="note">3D-FRONT*: real scenes that already meet the task (for reference). MiDiffusion: the base model
+    without RL. Bold: iARCS beats the base model.</p>
 
   <figure class="figure small">
     <img src="./static/images/preference_rate.webp" width="1085" height="702" loading="lazy"
       alt="Bar chart of human preference: iARCS preferred 71%, 63% and 52% on tasks 1 to 3, 61% overall">
-    <figcaption><b>Human preference.</b> 21 participants picked the best scenes for each task from a mix
-      of iARCS and constraint-filtered 3D-FRONT scenes.</figcaption>
+    <figcaption>Human preference: 21 people chose between iARCS and real 3D-FRONT scenes for each task.</figcaption>
   </figure>
 
-  <h3>iARCS data improves the base generator</h3>
+  <h3>iARCS data helps other models</h3>
   <div class="table-wrap">
     <table class="results">
       <thead>
@@ -406,24 +390,23 @@
       </tbody>
     </table>
   </div>
-  <p class="note">Each model is retrained on 3D-FRONT alone, on 3D-FRONT plus 4,000 unsteered MiDiffusion scenes, or on
-    3D-FRONT plus 4,000 iARCS scenes. iARCS data gives the larger gain on every plausibility and functional metric at
-    essentially unchanged diversity, so the gain comes from the steered scenes, not from extra data alone.</p>
+  <p class="note">Each model is retrained with 4,000 extra scenes, either from plain MiDiffusion or from iARCS.
+    iARCS scenes help more.</p>
 
   <div class="two-up">
     <figure class="figure">
       <img src="./static/images/quantitative_improvement_barplot.webp" width="1398" height="909" loading="lazy"
         alt="Bar chart comparing MiDiffusion trained on 3D-FRONT with MiDiffusion trained on 3D-FRONT plus iARCS data">
-      <figcaption>Per-metric change for MiDiffusion from adding iARCS data.</figcaption>
+      <figcaption>MiDiffusion with and without iARCS data.</figcaption>
     </figure>
     <figure class="figure">
       <img src="./static/images/table_2_fig.webp" width="1554" height="1107" loading="lazy"
         alt="Bedroom from MiDiffusion trained on 3D-FRONT next to one from MiDiffusion trained with iARCS augmentation">
-      <figcaption>The augmented model produces fewer collisions and more walkable space.</figcaption>
+      <figcaption>Fewer collisions and more walkable space with iARCS data.</figcaption>
     </figure>
   </div>
 
-  <h3>What the agentic loop adds</h3>
+  <h3>Does the reflection loop matter?</h3>
   <div class="table-wrap">
     <table class="results">
       <thead>
@@ -439,24 +422,22 @@
       </tbody>
     </table>
   </div>
-  <p class="note">Task success (%), mean &plusmn; std over 3 seeds at matched base model and budget. Freezing the first reward
-    reaches only 28.4 on Task&nbsp;1. The final reward does nearly as well when frozen from step&nbsp;0, but it is itself a
-    product of the loop and not available in advance. Iterating without the evolution memory recovers little.</p>
+  <p class="note">Task success (%), mean &plusmn; std over 3 seeds. Without the reflection loop or the memory,
+    success drops sharply.</p>
 
-  <h3>Why two phases</h3>
+  <h3>Why two phases?</h3>
   <figure class="figure narrow">
     <img src="./static/images/ablation_2stage_paper_updated.webp" width="1381" height="974" loading="lazy"
       alt="Line plots over RL stages: two-phase training reaches higher task success with lower out-of-bound and collision rates than one-phase training on three tasks">
-    <figcaption>Optimizing the task reward from the start (1-phase) climbs more slowly and drifts out of
-      bounds. Fixing physical plausibility first (2-phase) gives higher task success with fewer
-      collisions on all three tasks.</figcaption>
+    <figcaption>Fixing physical errors first (2-phase) gives higher task success and fewer collisions
+      than training on the task right away (1-phase).</figcaption>
   </figure>
 
   <h3>More examples</h3>
   <figure class="figure">
     <img src="./static/images/qualitative_supp1.webp" width="1788" height="926" loading="lazy"
       alt="Additional bedroom comparison between ATISS, MiDiffusion and iARCS with collision and walkability scores">
-    <figcaption>Perspective and top-down views of the same floor plan for ATISS, MiDiffusion and iARCS.</figcaption>
+    <figcaption>Same floor plan, three methods.</figcaption>
   </figure>
 </section>
 
