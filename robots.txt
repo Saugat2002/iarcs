@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://iarcs-webpage.vercel.app/sitemap.xml
+Sitemap: https://saugat2002.github.io/iarcs-webpage/sitemap.xml

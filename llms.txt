@@ -1,0 +1,49 @@
+# iARCS: Iterative Agentic RL for Controllable 3D Scene Generation
+
+> iARCS fine-tunes a pretrained 3D indoor scene diffusion model (MiDiffusion) with reinforcement learning (DDPO + LoRA). An LLM agent turns a natural-language task into executable Python reward code and revises it from training feedback, so generated rooms keep their learned realism and also satisfy the task constraint. Trained and evaluated on 3D-FRONT bedrooms, living rooms and dining rooms.
+
+Authors: Saugat Adhikari*, Ashok Prasad Neupane* (Pulchowk Campus, IOE, Tribhuvan University), Pramish Paudel (INSAIT, Sofia University), Ajad Chhatkuli and Danda Pani Paudel (NAAMII; INSAIT, Sofia University). *Equal contribution.
+
+## Links
+
+- [Project page](https://saugat2002.github.io/iarcs-webpage/): overview, figures and result tables
+- [arXiv abstract](https://arxiv.org/abs/2608.06161): arXiv:2608.06161
+- [Paper PDF](https://arxiv.org/pdf/2608.06161)
+
+## Problem
+
+- LLM / language-driven scene generators (Holodeck, SAGE, InstructScene) follow instructions but have no learned layout prior; InstructScene puts 43.39% of objects out of bounds on average.
+- Data-driven generators (ATISS, DiffuScene, MiDiffusion) learn realistic layouts but cannot take an instruction. For "all support surfaces within a 1.0 m reach limit", only 5.67% of 3D-FRONT bedrooms qualify and MiDiffusion satisfies it in 4.53% of samples.
+- iARCS keeps the diffusion prior and uses the LLM only to write rewards, never to place furniture.
+
+## Method
+
+1. Phase 1, universal rewards: RL with rule-based collision and boundary rewards fixes physical plausibility of the pretrained generator.
+2. Phase 2, agentic task rewards: for each prompt the LLM (Gemini 3.6 Flash) reasons about the constraint, decomposes it into geometric checks and writes a reward function. A task-specific LoRA adapter is trained on the universal + task reward with DDPO.
+3. Reward reflection: every 10 RL stages the LLM reviews reward statistics, top-down renders and a reward evolution memory of past reward programs, then redefines the reward or adds a curriculum step.
+
+## Key results
+
+- Scene synthesis, averaged over bedroom, living and dining rooms: iARCS is best among ATISS, MiDiffusion, InstructScene and PhyScene on every metric. Object collision 50.04%, scene collision 74.88%, out-of-bound 10.99%, reachability 80.39%, walkability 0.896, CLIP-FID 2.45, SCA 76.49%.
+- Task success vs. the unsteered MiDiffusion base: robot grasping with surfaces under 1.0 m 73.83% vs 4.53%; TV visible from bed for a farsighted viewer 66.02% vs 5.22%; bedroom with a functional study zone 33.39% vs 0.87%.
+- Human study (21 participants): iARCS scenes preferred 61% of the time overall over constraint-filtered 3D-FRONT scenes.
+- Data augmentation: retraining MiDiffusion on 3D-FRONT + 4,000 iARCS scenes cuts object collisions from 52.67% to 41.49% and raises reachability from 85.70% to 92.52% at unchanged CLIP-FID (1.34). Adding unsteered MiDiffusion scenes instead helps less.
+- Ablation: freezing the initial LLM reward reaches 28.4% task success on the robot-grasping task, iterating without memory 35.3%, full iARCS 73.83%. Two-phase training beats single-phase on task success, out-of-bound rate and collisions.
+
+## Datasets and models
+
+- [3D-FRONT](https://tianchi.aliyun.com/specials/promotion/alibaba-3d-scene-dataset): 6,813 professionally designed indoor scenes, standard splits
+- [3D-FUTURE](https://tianchi.aliyun.com/specials/promotion/alibaba-3d-future): furniture CAD models used for mesh retrieval
+- Base generator: MiDiffusion (floor-plan conditioned mixed diffusion)
+
+## Citation
+
+```bibtex
+@article{adhikari2026iarcs,
+  title   = {iARCS: Iterative Agentic RL for Controllable 3D Scene Generation},
+  author  = {Adhikari, Saugat and Neupane, Ashok Prasad and Paudel, Pramish
+             and Chhatkuli, Ajad and Paudel, Danda Pani},
+  journal = {arXiv preprint arXiv:2608.06161},
+  year    = {2026}
+}
+```

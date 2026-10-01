@@ -1,20 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Results carousel (bulma-carousel). Safe no-op if the element is absent.
-  if (window.bulmaCarousel && document.getElementById('results-carousel')) {
-    bulmaCarousel.attach('#results-carousel', {
-      slidesToScroll: 1,
-      slidesToShow: 2,
-      loop: true,
-      infinite: true,
-      autoplay: true,
-      autoplaySpeed: 4000,
-      breakpoints: [
-        { changePoint: 768, slidesToShow: 1, slidesToScroll: 1 }
-      ]
-    });
-  }
+  // Copy BibTeX to clipboard. Falls back to selecting the text if the clipboard API is unavailable.
+  var btn = document.getElementById('copy-bib');
+  var code = document.getElementById('bib-text');
+  if (!btn || !code) return;
 
-  if (window.bulmaSlider) {
-    bulmaSlider.attach();
-  }
+  btn.addEventListener('click', function () {
+    var label = btn.querySelector('span');
+    var done = function () {
+      label.textContent = 'Copied';
+      setTimeout(function () { label.textContent = 'Copy'; }, 1500);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(code.textContent).then(done);
+    } else {
+      var range = document.createRange();
+      range.selectNodeContents(code);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  });
 });
