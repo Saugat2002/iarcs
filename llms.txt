@@ -2,7 +2,7 @@
 
 > iARCS fine-tunes a pretrained 3D indoor scene diffusion model (MiDiffusion) with reinforcement learning (DDPO + LoRA). An LLM agent turns a natural-language task into executable Python reward code and revises it from training feedback, so generated rooms keep their learned realism and also satisfy the task constraint. Trained and evaluated on 3D-FRONT bedrooms, living rooms and dining rooms.
 
-Authors: Saugat Adhikari*, Ashok Prasad Neupane* (Pulchowk Campus, IOE, Tribhuvan University), Pramish Paudel (INSAIT, Sofia University), Ajad Chhatkuli and Danda Pani Paudel (NAAMII; INSAIT, Sofia University). *Equal contribution.
+Authors: Saugat Adhikari*, Ashok Prasad Neupane* (Pulchowk Campus, IOE, Tribhuvan University), Pramish Paudel* (INSAIT, Sofia University), Ajad Chhatkuli and Danda Pani Paudel (NAAMII; INSAIT, Sofia University). *Equal contribution.
 
 ## Links
 
