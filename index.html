@@ -47,7 +47,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css?v=5">
+  <link rel="stylesheet" href="./static/css/index.css?v=6">
   <link rel="icon" href="./static/images/favicon.svg">
   <link rel="alternate" type="text/plain" title="LLM-readable summary" href="./llms.txt">
 
@@ -127,40 +127,37 @@
 
 <!-- ===================== MOTIVATION ===================== -->
 <section id="motivation" class="section wide">
-  <p class="eyebrow">Motivation</p>
-  <h2 class="headline">Realistic <em>and</em> on-task.</h2>
+  <h2>Motivation</h2>
   <p class="lead">
-    Robots and embodied agents train on synthetic 3D rooms. These rooms need to look real
-    and also meet the task they were made for.
+    A scene generator learns a broad prior over rooms from data. For a task, we want the part of
+    that prior that satisfies the constraint, and we want to sample from it with the same
+    diversity as the original dataset.
   </p>
 
   <p class="prompt-label">Prompt</p>
   <p class="prompt">&ldquo;Robot grasping scene where all support surfaces are within a 1.0&nbsp;m vertical reach limit&rdquo;</p>
 
-  <ul class="legend" aria-label="Diagram legend">
-    <li><span class="sw sw-prior"></span>Rooms the model learned from data</li>
-    <li><span class="sw sw-goal"></span>Rooms that meet the prompt</li>
-    <li><span class="sw sw-dot"></span>Generated scene</li>
-  </ul>
-
   <div class="cards">
     <figure class="card">
-      <div class="card-img diagram"><svg viewBox="0 0 300 210" role="img" aria-label="A few scenes, each searched for separately, landing in the prompt region but outside realistic rooms"><ellipse cx="136" cy="118" rx="116" ry="74" class="d-prior-ghost"/><ellipse cx="206" cy="76" rx="74" ry="48" class="d-goal"/><path class="d-trail" d="M24,40 Q165,70 258,61"/><path class="d-trail" d="M40,190 Q134,102 228,61"/><path class="d-trail" d="M292,200 Q286,106 205,42"/><circle cx="258" cy="61" r="5" class="d-dot d-llm"/><circle cx="228" cy="61" r="5" class="d-dot d-llm"/><circle cx="205" cy="42" r="5" class="d-dot d-llm"/></svg></div>
+      <div class="card-img"><img src="./static/images/motivation_llm.webp" width="1024" height="1024"
+        alt="Top-down view of a language-driven layout with furniture placed outside the room boundary"></div>
       <figcaption>
-        <h3>LLM agents, one scene at a time</h3>
-        <p class="examples">Holodeck, SAGE</p>
+        <h3>LLM / language-driven</h3>
+        <p class="examples">Holodeck, SAGE, InstructScene</p>
         <ul class="checks">
           <li class="yes">Meets the prompt</li>
           <li class="no">Learned from data</li>
         </ul>
-        <p>An LLM places and fixes the furniture of each scene separately. Every new scene costs more
-          LLM calls and search, layouts drift away from how real rooms look, and you get a few
-          hand-made scenes instead of a diverse dataset.</p>
+        <p>Plans each scene separately. Every new scene costs more LLM calls, layouts are not learned
+          from real rooms, and furniture often ends up outside the room: 43.39% of objects for
+          InstructScene.</p>
+        <p class="credit">Shown: InstructScene sample.</p>
       </figcaption>
     </figure>
 
     <figure class="card">
-      <div class="card-img diagram"><svg viewBox="0 0 300 210" role="img" aria-label="Many scenes spread over the learned prior, few of them in the prompt region"><ellipse cx="136" cy="118" rx="116" ry="74" class="d-prior"/><ellipse cx="206" cy="76" rx="74" ry="48" class="d-goal"/><circle cx="66" cy="160" r="3.6" class="d-dot d-data"/><circle cx="67" cy="88" r="3.6" class="d-dot d-data"/><circle cx="62" cy="75" r="3.6" class="d-dot d-data"/><circle cx="123" cy="170" r="3.6" class="d-dot d-data"/><circle cx="102" cy="57" r="3.6" class="d-dot d-data"/><circle cx="79" cy="150" r="3.6" class="d-dot d-data"/><circle cx="70" cy="100" r="3.6" class="d-dot d-data"/><circle cx="116" cy="53" r="3.6" class="d-dot d-data"/><circle cx="129" cy="104" r="3.6" class="d-dot d-data"/><circle cx="109" cy="164" r="3.6" class="d-dot d-data"/><circle cx="125" cy="130" r="3.6" class="d-dot d-data"/><circle cx="202" cy="157" r="3.6" class="d-dot d-data"/><circle cx="88" cy="119" r="3.6" class="d-dot d-data"/><circle cx="98" cy="83" r="3.6" class="d-dot d-data"/><circle cx="69" cy="170" r="3.6" class="d-dot d-data"/><circle cx="112" cy="182" r="3.6" class="d-dot d-data"/><circle cx="135" cy="55" r="3.6" class="d-dot d-data"/><circle cx="32" cy="125" r="3.6" class="d-dot d-data"/><circle cx="180" cy="137" r="3.6" class="d-dot d-data"/><circle cx="98" cy="142" r="3.6" class="d-dot d-data"/><circle cx="165" cy="134" r="3.6" class="d-dot d-data"/><circle cx="107" cy="87" r="3.6" class="d-dot d-data"/><circle cx="122" cy="185" r="3.6" class="d-dot d-data"/><circle cx="111" cy="106" r="3.6" class="d-dot d-data"/><circle cx="33" cy="103" r="3.6" class="d-dot d-data"/><circle cx="169" cy="159" r="3.6" class="d-dot d-data"/><circle cx="134" cy="92" r="3.6" class="d-dot d-data"/><circle cx="39" cy="90" r="3.6" class="d-dot d-data"/><circle cx="82" cy="171" r="3.6" class="d-dot d-data"/><circle cx="43" cy="105" r="3.6" class="d-dot d-data"/><circle cx="79" cy="106" r="3.6" class="d-dot d-data"/><circle cx="167" cy="122" r="3.6" class="d-dot d-data"/><circle cx="68" cy="137" r="3.6" class="d-dot d-data"/><circle cx="60" cy="128" r="3.6" class="d-dot d-data"/><circle cx="152" cy="135" r="3.6" class="d-dot d-data"/><circle cx="93" cy="63" r="3.6" class="d-dot d-data"/><circle cx="225" cy="146" r="3.6" class="d-dot d-data"/><circle cx="189" cy="145" r="3.6" class="d-dot d-data"/><circle cx="141" cy="176" r="3.6" class="d-dot d-data"/><circle cx="131" cy="152" r="3.6" class="d-dot d-data"/><circle cx="190" cy="173" r="3.6" class="d-dot d-data"/><circle cx="189" cy="60" r="3.6" class="d-dot d-hit"/><circle cx="131" cy="162" r="3.6" class="d-dot d-data"/><circle cx="147" cy="167" r="3.6" class="d-dot d-data"/><circle cx="55" cy="104" r="3.6" class="d-dot d-data"/><circle cx="104" cy="175" r="3.6" class="d-dot d-data"/></svg></div>
+      <div class="card-img"><img src="./static/images/motivation_data.webp" width="716" height="633"
+        alt="MiDiffusion bedroom sample with a tall wardrobe and colliding furniture"></div>
       <figcaption>
         <h3>Data-driven generators</h3>
         <p class="examples">ATISS, DiffuScene, MiDiffusion</p>
@@ -171,11 +168,13 @@
         <p>They learn the spread of real rooms, flaws included: 42% of objects in real 3D-FRONT
           bedrooms already collide. They cannot take a prompt, so hard constraints are rarely met.
           MiDiffusion meets this one in 4.53% of scenes.</p>
+        <p class="credit">Shown: MiDiffusion sample.</p>
       </figcaption>
     </figure>
 
     <figure class="card ours">
-      <div class="card-img diagram"><svg viewBox="0 0 300 210" role="img" aria-label="Many scenes spread across the part of the learned prior that meets the prompt"><ellipse cx="136" cy="118" rx="116" ry="74" class="d-prior"/><ellipse cx="206" cy="76" rx="74" ry="48" class="d-goal"/><circle cx="210" cy="105" r="3.6" class="d-dot d-ours"/><circle cx="188" cy="75" r="3.6" class="d-dot d-ours"/><circle cx="220" cy="91" r="3.6" class="d-dot d-ours"/><circle cx="190" cy="97" r="3.6" class="d-dot d-ours"/><circle cx="167" cy="56" r="3.6" class="d-dot d-ours"/><circle cx="153" cy="102" r="3.6" class="d-dot d-ours"/><circle cx="151" cy="57" r="3.6" class="d-dot d-ours"/><circle cx="237" cy="97" r="3.6" class="d-dot d-ours"/><circle cx="201" cy="83" r="3.6" class="d-dot d-ours"/><circle cx="203" cy="63" r="3.6" class="d-dot d-ours"/><circle cx="173" cy="110" r="3.6" class="d-dot d-ours"/><circle cx="172" cy="88" r="3.6" class="d-dot d-ours"/><circle cx="215" cy="74" r="3.6" class="d-dot d-ours"/><circle cx="175" cy="73" r="3.6" class="d-dot d-ours"/><circle cx="160" cy="81" r="3.6" class="d-dot d-ours"/><circle cx="144" cy="77" r="3.6" class="d-dot d-ours"/><circle cx="218" cy="116" r="3.6" class="d-dot d-ours"/><circle cx="194" cy="115" r="3.6" class="d-dot d-ours"/><circle cx="241" cy="109" r="3.6" class="d-dot d-ours"/><circle cx="227" cy="80" r="3.6" class="d-dot d-ours"/><circle cx="225" cy="104" r="3.6" class="d-dot d-ours"/><circle cx="186" cy="61" r="3.6" class="d-dot d-ours"/><circle cx="144" cy="92" r="3.6" class="d-dot d-ours"/><circle cx="160" cy="68" r="3.6" class="d-dot d-ours"/><circle cx="206" cy="121" r="3.6" class="d-dot d-ours"/><circle cx="140" cy="65" r="3.6" class="d-dot d-ours"/></svg></div>
+      <div class="card-img"><img src="./static/images/motivation_ours.webp" width="1106" height="534"
+        alt="iARCS bedroom where the desk and nightstands are all below 1 meter"></div>
       <figcaption>
         <h3>iARCS (ours)</h3>
         <p class="examples">Diffusion prior + agentic RL</p>
@@ -188,6 +187,20 @@
           the prompt.</p>
       </figcaption>
     </figure>
+  </div>
+
+  <div class="intuition">
+    <p class="prompt-label">Intuition</p>
+  <ul class="legend" aria-label="Diagram legend">
+    <li><span class="sw sw-prior"></span>Rooms the model learned from data</li>
+    <li><span class="sw sw-goal"></span>Rooms that meet the prompt</li>
+    <li><span class="sw sw-dot"></span>Generated scene</li>
+  </ul>
+    <div class="intuition-row">
+      <figure><svg viewBox="0 0 300 210" role="img" aria-label="A few scenes, each searched for separately, landing in the prompt region but outside realistic rooms"><ellipse cx="136" cy="118" rx="116" ry="74" class="d-prior-ghost"/><ellipse cx="206" cy="76" rx="74" ry="48" class="d-goal"/><path class="d-trail" d="M24,40 Q165,70 258,61"/><path class="d-trail" d="M40,190 Q134,102 228,61"/><path class="d-trail" d="M292,200 Q286,106 205,42"/><circle cx="258" cy="61" r="5" class="d-dot d-llm"/><circle cx="228" cy="61" r="5" class="d-dot d-llm"/><circle cx="205" cy="42" r="5" class="d-dot d-llm"/></svg><figcaption>LLM: a few scenes, each searched for separately, outside realistic rooms.</figcaption></figure>
+      <figure><svg viewBox="0 0 300 210" role="img" aria-label="Many scenes spread over the learned prior, few of them in the prompt region"><ellipse cx="136" cy="118" rx="116" ry="74" class="d-prior"/><ellipse cx="206" cy="76" rx="74" ry="48" class="d-goal"/><circle cx="66" cy="160" r="3.6" class="d-dot d-data"/><circle cx="67" cy="88" r="3.6" class="d-dot d-data"/><circle cx="62" cy="75" r="3.6" class="d-dot d-data"/><circle cx="123" cy="170" r="3.6" class="d-dot d-data"/><circle cx="102" cy="57" r="3.6" class="d-dot d-data"/><circle cx="79" cy="150" r="3.6" class="d-dot d-data"/><circle cx="70" cy="100" r="3.6" class="d-dot d-data"/><circle cx="116" cy="53" r="3.6" class="d-dot d-data"/><circle cx="129" cy="104" r="3.6" class="d-dot d-data"/><circle cx="109" cy="164" r="3.6" class="d-dot d-data"/><circle cx="125" cy="130" r="3.6" class="d-dot d-data"/><circle cx="202" cy="157" r="3.6" class="d-dot d-data"/><circle cx="88" cy="119" r="3.6" class="d-dot d-data"/><circle cx="98" cy="83" r="3.6" class="d-dot d-data"/><circle cx="69" cy="170" r="3.6" class="d-dot d-data"/><circle cx="112" cy="182" r="3.6" class="d-dot d-data"/><circle cx="135" cy="55" r="3.6" class="d-dot d-data"/><circle cx="32" cy="125" r="3.6" class="d-dot d-data"/><circle cx="180" cy="137" r="3.6" class="d-dot d-data"/><circle cx="98" cy="142" r="3.6" class="d-dot d-data"/><circle cx="165" cy="134" r="3.6" class="d-dot d-data"/><circle cx="107" cy="87" r="3.6" class="d-dot d-data"/><circle cx="122" cy="185" r="3.6" class="d-dot d-data"/><circle cx="111" cy="106" r="3.6" class="d-dot d-data"/><circle cx="33" cy="103" r="3.6" class="d-dot d-data"/><circle cx="169" cy="159" r="3.6" class="d-dot d-data"/><circle cx="134" cy="92" r="3.6" class="d-dot d-data"/><circle cx="39" cy="90" r="3.6" class="d-dot d-data"/><circle cx="82" cy="171" r="3.6" class="d-dot d-data"/><circle cx="43" cy="105" r="3.6" class="d-dot d-data"/><circle cx="79" cy="106" r="3.6" class="d-dot d-data"/><circle cx="167" cy="122" r="3.6" class="d-dot d-data"/><circle cx="68" cy="137" r="3.6" class="d-dot d-data"/><circle cx="60" cy="128" r="3.6" class="d-dot d-data"/><circle cx="152" cy="135" r="3.6" class="d-dot d-data"/><circle cx="93" cy="63" r="3.6" class="d-dot d-data"/><circle cx="225" cy="146" r="3.6" class="d-dot d-data"/><circle cx="189" cy="145" r="3.6" class="d-dot d-data"/><circle cx="141" cy="176" r="3.6" class="d-dot d-data"/><circle cx="131" cy="152" r="3.6" class="d-dot d-data"/><circle cx="190" cy="173" r="3.6" class="d-dot d-data"/><circle cx="189" cy="60" r="3.6" class="d-dot d-hit"/><circle cx="131" cy="162" r="3.6" class="d-dot d-data"/><circle cx="147" cy="167" r="3.6" class="d-dot d-data"/><circle cx="55" cy="104" r="3.6" class="d-dot d-data"/><circle cx="104" cy="175" r="3.6" class="d-dot d-data"/></svg><figcaption>Data-driven: a broad prior learned from data that rarely meets the prompt.</figcaption></figure>
+      <figure><svg viewBox="0 0 300 210" role="img" aria-label="Many scenes spread across the part of the learned prior that meets the prompt"><ellipse cx="136" cy="118" rx="116" ry="74" class="d-prior"/><ellipse cx="206" cy="76" rx="74" ry="48" class="d-goal"/><circle cx="210" cy="105" r="3.6" class="d-dot d-ours"/><circle cx="188" cy="75" r="3.6" class="d-dot d-ours"/><circle cx="220" cy="91" r="3.6" class="d-dot d-ours"/><circle cx="190" cy="97" r="3.6" class="d-dot d-ours"/><circle cx="167" cy="56" r="3.6" class="d-dot d-ours"/><circle cx="153" cy="102" r="3.6" class="d-dot d-ours"/><circle cx="151" cy="57" r="3.6" class="d-dot d-ours"/><circle cx="237" cy="97" r="3.6" class="d-dot d-ours"/><circle cx="201" cy="83" r="3.6" class="d-dot d-ours"/><circle cx="203" cy="63" r="3.6" class="d-dot d-ours"/><circle cx="173" cy="110" r="3.6" class="d-dot d-ours"/><circle cx="172" cy="88" r="3.6" class="d-dot d-ours"/><circle cx="215" cy="74" r="3.6" class="d-dot d-ours"/><circle cx="175" cy="73" r="3.6" class="d-dot d-ours"/><circle cx="160" cy="81" r="3.6" class="d-dot d-ours"/><circle cx="144" cy="77" r="3.6" class="d-dot d-ours"/><circle cx="218" cy="116" r="3.6" class="d-dot d-ours"/><circle cx="194" cy="115" r="3.6" class="d-dot d-ours"/><circle cx="241" cy="109" r="3.6" class="d-dot d-ours"/><circle cx="227" cy="80" r="3.6" class="d-dot d-ours"/><circle cx="225" cy="104" r="3.6" class="d-dot d-ours"/><circle cx="186" cy="61" r="3.6" class="d-dot d-ours"/><circle cx="144" cy="92" r="3.6" class="d-dot d-ours"/><circle cx="160" cy="68" r="3.6" class="d-dot d-ours"/><circle cx="206" cy="121" r="3.6" class="d-dot d-ours"/><circle cx="140" cy="65" r="3.6" class="d-dot d-ours"/></svg><figcaption>iARCS: the part of the prior that meets the prompt, still diverse.</figcaption></figure>
+    </div>
   </div>
 
   <p class="statement">

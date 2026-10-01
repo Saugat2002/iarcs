@@ -218,9 +218,14 @@ h3 {
 .checks .no { color: var(--bad); }
 .checks .no::before { content: '\f00d'; }
 
-/* concept diagrams in the motivation cards */
-.card-img.diagram { padding: 0.5rem; background: #fbfcfd; }
-.card-img.diagram svg { width: 100%; height: 100%; display: block; }
+/* intuition strip: concept diagrams under the motivation cards */
+.intuition { margin: 2.2rem auto 0; max-width: 900px; }
+.intuition-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.intuition-row figure { margin: 0; }
+.intuition-row svg { width: 100%; height: auto; display: block; background: #fbfcfd;
+  border: 1px solid var(--line); border-radius: 10px; }
+.intuition-row figcaption { font-size: 0.82rem; color: var(--muted); text-align: center; margin-top: 0.4rem; line-height: 1.4; }
+@media (max-width: 640px) { .intuition-row { grid-template-columns: 1fr; } }
 .d-prior { fill: #e6e9ee; stroke: #b9bec7; stroke-width: 1.5; }
 .d-prior-ghost { fill: none; stroke: #b9bec7; stroke-width: 1.5; stroke-dasharray: 5 5; }
 .d-goal { fill: rgba(24, 128, 56, 0.16); stroke: var(--good); stroke-width: 1.5; stroke-dasharray: 4 3; }
