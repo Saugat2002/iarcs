@@ -218,6 +218,36 @@ h3 {
 .checks .no { color: var(--bad); }
 .checks .no::before { content: '\f00d'; }
 
+/* concept diagrams in the motivation cards */
+.card-img.diagram { padding: 0.5rem; background: #fbfcfd; }
+.card-img.diagram svg { width: 100%; height: 100%; display: block; }
+.d-prior { fill: #e6e9ee; stroke: #b9bec7; stroke-width: 1.5; }
+.d-prior-ghost { fill: none; stroke: #b9bec7; stroke-width: 1.5; stroke-dasharray: 5 5; }
+.d-goal { fill: rgba(24, 128, 56, 0.16); stroke: var(--good); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.d-dot { stroke: #fff; stroke-width: 1; }
+.d-data { fill: #8a8f98; }
+.d-hit { fill: var(--good); }
+.d-ours { fill: var(--accent); }
+.d-llm { fill: #e37400; }
+.d-trail { fill: none; stroke: #e37400; stroke-width: 1.3; stroke-dasharray: 2 3; opacity: 0.8; }
+
+.legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.4rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.legend li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.sw { display: inline-block; width: 18px; height: 12px; border-radius: 6px; }
+.sw-prior { background: #e6e9ee; border: 1.5px solid #b9bec7; }
+.sw-goal { background: rgba(24, 128, 56, 0.16); border: 1.5px dashed var(--good); }
+.sw-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+
 .statement {
   max-width: 720px;
   margin: 2.4rem auto 2rem;
