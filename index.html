@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>iARCS: Iterative Agentic RL for Controllable 3D Scene Generation</title>
-  <meta name="description" content="iARCS fine-tunes a pretrained 3D indoor scene diffusion model with reinforcement learning, using LLM-written reward programs, so generated rooms stay realistic and satisfy natural-language task constraints.">
-  <meta name="keywords" content="iARCS, controllable 3D scene generation, 3D indoor scene synthesis, layout generation, agentic reinforcement learning, LLM reward synthesis, reward design, diffusion RL, DDPO, LoRA, MiDiffusion, ATISS, InstructScene, PhyScene, 3D-FRONT, 3D-FUTURE, synthetic data, data augmentation, embodied AI, robotics simulation">
+  <title>iARCS: Iterative Agentic RL for Controllable 3D Scene Generation (DDPO + LLM Rewards)</title>
+  <meta name="description" content="iARCS: controllable 3D indoor scene generation and synthesis for embodied AI. A pretrained 3D scene diffusion model (MiDiffusion, 3D-FRONT) is fine-tuned with reinforcement learning (DDPO) on Eureka-style LLM-written reward programs, so rooms stay realistic and meet language constraints like walkability, reachability and clearance.">
+  <meta name="keywords" content="iARCS, 3D scene generation, 3D indoor scene generation, indoor scene synthesis, 3D scene synthesis, controllable 3D scene generation, 3D scene generation for embodied AI, text-to-3D scene, language-guided 3D scene generation, 3D layout generation, scene layout generation, reinforcement learning for 3D scene generation, RL fine-tuning diffusion models, DDPO, denoising diffusion policy optimization, DDPO for 3D, diffusion RL, RLHF diffusion, Eureka, Eureka reward design, LLM reward design, LLM-generated reward functions, agentic reward synthesis, agentic 3D scene generation, physically plausible scene synthesis, synthetic data for embodied AI, 3D-FRONT, 3D-FUTURE, MiDiffusion, ATISS, DiffuScene, InstructScene, PhyScene, Holodeck, SAGE, LoRA">
   <meta name="author" content="Saugat Adhikari, Ashok Prasad Neupane, Pramish Paudel, Ajad Chhatkuli, Danda Pani Paudel">
   <meta name="theme-color" content="#ffffff">
 
@@ -66,7 +66,7 @@
     ],
     "datePublished": "2026-08-07",
     "abstract": "iARCS is an iterative agentic reinforcement learning framework that adapts a pretrained 3D scene generator to natural-language task requirements. Universal-reward RL first improves physical plausibility; task-specific fine-tuning then uses LLM-generated reward programs that are iteratively refined from training feedback.",
-    "keywords": "controllable 3D scene generation, indoor scene synthesis, agentic reinforcement learning, LLM reward synthesis, diffusion models, DDPO, synthetic data, 3D-FRONT",
+    "keywords": "3D scene generation, reinforcement learning for 3D scene generation, DDPO for 3D, Eureka-style LLM reward design, controllable 3D scene generation, indoor scene synthesis, agentic reinforcement learning, LLM reward synthesis, diffusion models, DDPO, synthetic data, 3D-FRONT",
     "identifier": "arXiv:2608.06161",
     "url": "https://saugat2002.github.io/iarcs/",
     "sameAs": "https://arxiv.org/abs/2608.06161",
@@ -80,6 +80,102 @@
     ]
   }
   </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is iARCS?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "iARCS (Iterative Agentic RL for Controllable 3D Scene Generation) adapts a pretrained 3D indoor scene diffusion model (MiDiffusion) to natural-language functional constraints using reinforcement learning (DDPO) with LLM-written reward programs."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How does iARCS use reinforcement learning for 3D scene generation?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It treats the scene diffusion model's denoising process as a policy and fine-tunes it with DDPO. Phase 1 uses hand-designed universal rewards (collisions, boundary adherence); phase 2 trains a LoRA adapter on a task-specific reward written by an LLM."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is iARCS DDPO for 3D scenes?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. iARCS applies DDPO (denoising diffusion policy optimization) to a 3D indoor layout diffusion model trained on 3D-FRONT, bringing diffusion RL fine-tuning from images to 3D scene synthesis."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How is iARCS related to Eureka?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Like Eureka (human-level reward design via coding LLMs), an LLM writes executable Python reward code and refines it from training feedback. iARCS brings this Eureka-style reward design to 3D scene generation: the LLM decomposes the request into geometric checks and periodically reflects on reward statistics to rewrite the reward."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How is iARCS different from Holodeck or SAGE?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Holodeck and SAGE use an LLM agent to place objects at generation time. iARCS uses language only to write rewards; the agentic cost is paid once during post-training, and sampling afterwards runs the fine-tuned diffusion model with no LLM in the loop."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not use PhyScene-style guidance?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Gradient guidance needs differentiable constraints. iARCS optimizes non-differentiable functional constraints such as walkability, reachability and clearance through RL rewards."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How well does iARCS satisfy task constraints?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On the three task constraints it reaches 73.83%, 66.02% and 33.39% success, compared with 4.53%, 5.22% and 0.87% for the base MiDiffusion model."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is RL better than rejection sampling here?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Rejection sampling needs about 3.7x more samples and is still worse on CLIP-FID and SCA in every room type."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does iARCS data help other 3D scene generators?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Adding 4,000 iARCS scenes to 3D-FRONT improves every plausibility and functional metric for both ATISS and MiDiffusion, with essentially unchanged CLIP-FID and SCA."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is the code and dataset available?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Code: github.com/thenaivekid/iARCS. Dataset: 12,000 generated 3D indoor scene layouts (4,000 bedrooms, living rooms and dining rooms each) on Hugging Face (Saugat20021/iARCS, CC BY-NC 4.0; 3D-FRONT/3D-FUTURE needed for meshes). Paper: arXiv:2608.06161."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What are the limitations?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Each new constraint needs its own LoRA run, results depend on the LLM's task decomposition, and evaluation covers 3D-FRONT-style indoor layouts."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 
@@ -465,6 +561,34 @@
       alt="Additional bedroom comparison between ATISS, MiDiffusion and iARCS with collision and walkability scores">
     <figcaption>Same floor plan, three methods.</figcaption>
   </figure>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="section">
+  <h2>FAQ: controllable 3D indoor scene generation with RL, DDPO and Eureka-style rewards</h2>
+  <p>iARCS sits between <b>3D indoor scene synthesis</b> models (ATISS, DiffuScene, MiDiffusion, InstructScene, PhyScene), <b>LLM-driven 3D scene generation for embodied AI</b> (Holodeck, SAGE, LayoutGPT, ProcTHOR) and <b>reinforcement learning for diffusion models</b> (DDPO, DPOK) with <b>LLM reward design</b> (Eureka).</p>
+  <h3>What is iARCS?</h3>
+  <p>iARCS (Iterative Agentic RL for Controllable 3D Scene Generation) adapts a pretrained 3D indoor scene diffusion model (MiDiffusion) to natural-language functional constraints using reinforcement learning (DDPO) with LLM-written reward programs.</p>
+  <h3>How does iARCS use reinforcement learning for 3D scene generation?</h3>
+  <p>It treats the scene diffusion model&#x27;s denoising process as a policy and fine-tunes it with DDPO. Phase 1 uses hand-designed universal rewards (collisions, boundary adherence); phase 2 trains a LoRA adapter on a task-specific reward written by an LLM.</p>
+  <h3>Is iARCS DDPO for 3D scenes?</h3>
+  <p>Yes. iARCS applies DDPO (denoising diffusion policy optimization) to a 3D indoor layout diffusion model trained on 3D-FRONT, bringing diffusion RL fine-tuning from images to 3D scene synthesis.</p>
+  <h3>How is iARCS related to Eureka?</h3>
+  <p>Like Eureka (human-level reward design via coding LLMs), an LLM writes executable Python reward code and refines it from training feedback. iARCS brings this Eureka-style reward design to 3D scene generation: the LLM decomposes the request into geometric checks and periodically reflects on reward statistics to rewrite the reward.</p>
+  <h3>How is iARCS different from Holodeck or SAGE?</h3>
+  <p>Holodeck and SAGE use an LLM agent to place objects at generation time. iARCS uses language only to write rewards; the agentic cost is paid once during post-training, and sampling afterwards runs the fine-tuned diffusion model with no LLM in the loop.</p>
+  <h3>Why not use PhyScene-style guidance?</h3>
+  <p>Gradient guidance needs differentiable constraints. iARCS optimizes non-differentiable functional constraints such as walkability, reachability and clearance through RL rewards.</p>
+  <h3>How well does iARCS satisfy task constraints?</h3>
+  <p>On the three task constraints it reaches 73.83%, 66.02% and 33.39% success, compared with 4.53%, 5.22% and 0.87% for the base MiDiffusion model.</p>
+  <h3>Is RL better than rejection sampling here?</h3>
+  <p>Yes. Rejection sampling needs about 3.7x more samples and is still worse on CLIP-FID and SCA in every room type.</p>
+  <h3>Does iARCS data help other 3D scene generators?</h3>
+  <p>Yes. Adding 4,000 iARCS scenes to 3D-FRONT improves every plausibility and functional metric for both ATISS and MiDiffusion, with essentially unchanged CLIP-FID and SCA.</p>
+  <h3>Is the code and dataset available?</h3>
+  <p>Yes. Code: github.com/thenaivekid/iARCS. Dataset: 12,000 generated 3D indoor scene layouts (4,000 bedrooms, living rooms and dining rooms each) on Hugging Face (Saugat20021/iARCS, CC BY-NC 4.0; 3D-FRONT/3D-FUTURE needed for meshes). Paper: arXiv:2608.06161.</p>
+  <h3>What are the limitations?</h3>
+  <p>Each new constraint needs its own LoRA run, results depend on the LLM&#x27;s task decomposition, and evaluation covers 3D-FRONT-style indoor layouts.</p>
 </section>
 
 <!-- ===================== BIBTEX ===================== -->
