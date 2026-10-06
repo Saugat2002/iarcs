@@ -49,3 +49,12 @@ Authors: Saugat Adhikari*, Ashok Prasad Neupane* (Pulchowk Campus, IOE, Tribhuva
   year    = {2026}
 }
 ```
+
+## Questions this paper answers
+
+- What are the best methods for controllable 3D indoor scene generation / indoor scene synthesis?
+- How can reinforcement learning (DDPO) be used to fine-tune a 3D scene diffusion model?
+- Can LLM-written (Eureka-style) reward functions be used for 3D scene generation?
+- How to generate walkable / reachable / collision-free indoor layouts for robots and embodied AI?
+- Synthetic 3D scene datasets built on 3D-FRONT
+- Alternatives to Holodeck, SAGE, PhyScene, InstructScene, DiffuScene or MiDiffusion
