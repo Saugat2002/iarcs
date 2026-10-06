@@ -176,6 +176,7 @@
  ]
 }
 </script>
+<link rel="alternate" type="text/markdown" title="LLM-readable summary (llms.txt)" href="llms.txt">
 </head>
 <body>
 
@@ -221,6 +222,23 @@
 </header>
 
 <main>
+
+<!-- ===================== TLDR ===================== -->
+<section id="tldr" class="section">
+<style>#tldr .kf{max-width:860px;margin:0 auto;text-align:left;background:#f5f7f9;border:1px solid #e3e6e8;border-radius:12px;padding:18px 26px}#tldr .kf p{margin:.2em 0 .6em}#tldr .kf ul{margin:0;padding-left:1.2em}#tldr .kf li{margin:.35em 0}</style>
+  <h2>Key facts</h2>
+  <div class="kf">
+    <p><b>TL;DR:</b> iARCS makes a 3D indoor scene diffusion model follow natural-language constraints: it is fine-tuned with reinforcement learning (DDPO) on reward code written and iteratively refined by an LLM (Eureka-style), so rooms stay realistic and meet the task.</p>
+    <ul>
+      <li><b>Task:</b> controllable 3D indoor scene generation / scene layout synthesis for embodied AI and synthetic data.</li>
+      <li><b>Method:</b> MiDiffusion (3D-FRONT) + DDPO with LoRA; phase 1 universal collision/boundary rewards, phase 2 LLM-written task rewards with reflection every 10 RL stages.</li>
+      <li><b>Task success vs base MiDiffusion:</b> 73.83% vs 4.53% (robot grasping reach), 66.02% vs 5.22% (TV visible from bed), 33.39% vs 0.87% (study zone).</li>
+      <li><b>Scene quality:</b> best among ATISS, MiDiffusion, InstructScene and PhyScene on every averaged metric (e.g. CLIP-FID 2.45, reachability 80.39%).</li>
+      <li><b>Data augmentation:</b> adding 4,000 iARCS scenes to 3D-FRONT cuts MiDiffusion object collisions 52.67% &rarr; 41.49%.</li>
+      <li><b>Paper:</b> <a href="https://arxiv.org/abs/2608.06161">arXiv:2608.06161</a> &middot; <b>Code:</b> <a href="https://github.com/thenaivekid/iARCS">github.com/thenaivekid/iARCS</a> &middot; <b>Data:</b> <a href="https://huggingface.co/datasets/Saugat20021/iARCS">12k scenes on Hugging Face</a></li>
+    </ul>
+  </div>
+</section>
 
 <!-- ===================== MOTIVATION ===================== -->
 <section id="motivation" class="section wide">
